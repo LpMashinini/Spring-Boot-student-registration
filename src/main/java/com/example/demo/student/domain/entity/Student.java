@@ -3,6 +3,7 @@ package com.example.demo.student.domain.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity // for Hibernate
 @Table // for table in our databse
@@ -18,6 +19,7 @@ public class Student {
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence"
     )
+
     private long id;
     private String name;
     private String email;
@@ -77,7 +79,8 @@ public class Student {
     }
 
     public Integer getAge() {
-        return age;
+
+        return Period.between(this.dob, LocalDate.now()).getYears();
     }
 
     public void setAge(Integer age) {
